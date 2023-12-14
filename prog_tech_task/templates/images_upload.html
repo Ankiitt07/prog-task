@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Upload</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        select,
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Image Upload</h1>
+    <form action="{% url 'upload_image' %}" id="imageForm" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% if data.img_type == 'portrait' %}
+        <label for="imageType">Select Image Type:</label>
+        <select id="imageType" name="imageType">
+            <option value="portrait" selected>Portrait</option>
+            <option value="landscape">Landscape</option>
+        </select>
+        {% else %}
+        <label for="imageType">Select Image Type:</label>
+        <select id="imageType" name="imageType">
+            <option value="portrait">Portrait</option>
+            <option value="landscape" selected>Landscape</option>
+        </select>
+        {% endif %}
+        <br>
+        <label for="image">Choose Image:</label>
+        <input type="file" id="image" name="image" accept="image/*">
+        <br>
+        <button type="submit">Upload Image</button>
+    </form>
+    <div style="text-align: center; margin-top: 20px;">
+        <a href="{% url 'gallery' %}">
+            <button>View Gallery</button>
+        </a>
+    </div>
+    <div style="text-align: center; margin-top: 20px;">
+        <a href="{% url 'user_logout' %}">
+            <button>Logout</button>
+        </a>
+    </div>
+</body>
+</html>
